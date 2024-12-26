@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  productpage:
+    build:
+      context: .
+      dockerfile: Dockerfile-productpage
+    image: grupo24/productpage
+    restart: always
+    ports:
+      - 9080:9080
+    links:
+      - details
+      - reviews
+
+  details:
+    build:
+      context: .
+      dockerfile: Dockerfile-details
+    image: grupo24/details
+    restart: always
+    expose:
+      - 9080
+
+  reviews:
+    build:
+      context: .
+      dockerfile: Dockerfile-reviews
+    image: grupo24/reviews
+    restart: always
+    expose: 
+      - 9080
+    links:
+      - ratings
+
+  ratings:
+    build:
+      context: .
+      dockerfile: Dockerfile-ratings
+    image: grupo24/ratings
+    restart: always
+    expose:
+      - 9080
